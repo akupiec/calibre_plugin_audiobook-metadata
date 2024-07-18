@@ -32,7 +32,7 @@ def create_zip(zip_filename, paths):
     print(f"Created zip file {zip_filename} containing {len(paths)} items.")
 
 
-files_to_zip = ['../tinytag', '../__init__.py', '../plugin-import-name-audiobook_support']
-zip_filename = 'audiobook_support.zip'
+files_to_zip = ['../tinytag', '../__init__.py', '../plugin-import-name-audiobook_metadata.txt']
+zip_filename = 'audiobook_metadata_0.1.1.zip'
 
 create_zip(zip_filename, files_to_zip)
