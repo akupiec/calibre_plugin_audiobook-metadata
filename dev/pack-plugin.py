@@ -1,5 +1,8 @@
 import os
+import sys
 import zipfile
+
+import __version__
 
 
 def zipdir(path, ziph):
@@ -31,8 +34,18 @@ def create_zip(zip_filename, paths):
                 print(f"Path {path} does not exist and will be skipped.")
     print(f"Created zip file {zip_filename} containing {len(paths)} items.")
 
+def check_if_file_exists(filename):
+    if os.path.isfile(filename):
+        print(f"File '{filename}' exists. Exiting program.")
+        sys.exit()
 
-files_to_zip = ['../tinytag', '../__init__.py', '../plugin-import-name-audiobook_metadata.txt']
-zip_filename = 'audiobook_metadata_0.1.1.zip'
+def generate_file_name():
+    return 'audiobook_metadata_' + __version__.__version__ + '.zip'
+
+
+
+files_to_zip = ['../tinytag', '../__init__.py', '../__version__.py', '../plugin-import-name-audiobook_metadata.txt']
+zip_filename = generate_file_name()
+check_if_file_exists(zip_filename)
 
 create_zip(zip_filename, files_to_zip)

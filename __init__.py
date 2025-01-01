@@ -6,6 +6,8 @@ from calibre.ebooks.metadata.book.base import Metadata
 from PIL import Image
 from calibre_plugins.audiobook_metadata.tinytag import TinyTag
 
+from calibre_plugins.audiobook_metadata.__version__ import version_tuple
+
 
 class AudioBookPlugin(MetadataReaderPlugin):
     file_types = {"m4b", "m4a"}
@@ -13,7 +15,7 @@ class AudioBookPlugin(MetadataReaderPlugin):
 
     name = "Read Audiobooks metadata"
     description = "Read metadata from m4b,m4a files, perhaps more in future..."
-    version = (0, 1, 1)
+    version = version_tuple
     minimum_calibre_version = (7, 0, 0)
     can_be_disabled = False
 
@@ -54,4 +56,6 @@ def get_title_form_tag(tag):
     title = tag.album or tag.title
     if title is None:
         return None
-    return title.strip().rstrip(" (Unabridged)")
+    if title.endswith(" (Unabridged)"):
+        return title.strip()[:-13]  # remove " (Unabridged)" only if it's exactly at the end
+    return title.strip()
